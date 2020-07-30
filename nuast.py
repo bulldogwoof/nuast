@@ -1,8 +1,13 @@
+import unittest
 import random
 player1score = 0
 player2score = 0
 turn = 1
 times = 0
+def FakeOneDice(value):
+    return value
+def RollOneDice():
+    return random.randint(1, 6)
 def diceroll():
     global turn
     global player1score
@@ -14,8 +19,8 @@ def diceroll():
             go = input("Player 1, Type To roll...")
         if turn == 2:
             go = input("Player 2, Type To roll...")
-        dice1 = random.randint(1,6)
-        dice2 = random.randint(1,6)
+        dice1 = RollOneDice()
+        dice2 = RollOneDice()
         print("you rolled", dice1, "and", dice2)
         roundscore += (dice1 + dice2)
         if ((dice1 + dice2) % 2) == 0:
@@ -29,12 +34,15 @@ def diceroll():
             finished = 1
     if turn == 1:
         player1score += roundscore
+        player1score = max(0, player1score)
     if turn == 2:
         player2score += roundscore
+        player2score = max(0, player2score)
     if turn == 1:
         turn = 2
     else:
         turn = 1
+
 while times < 10:
     diceroll()
     print("player 1's score is", player1score)
@@ -44,9 +52,9 @@ if player1score == player2score:
     while player1score == player2score:
         print("TieBreaker!")
         goo = input("Type to roll...")
-        dice1 = random.randint(1, 6)
+        dice1 = RollOneDice()
         player1score += dice1
-        dice2 = random.randint(1, 6)
+        dice2 = RolleOneDice()
         player2score += dice2
         print("player 1 rolled", dice1)
         print("player 2 rolled", dice2)
@@ -62,7 +70,5 @@ else:
     f = open('output.txt', 'w')
     f.write("Player 2 wins!" + '\n')
     f.write("player 2 score: " + '\n' )
-    f.write( + "player 1 score: ", player2score)
+    f.write( + "player 1 score: " + '\n' )
     f.close()
-
-xyz
